@@ -6,3 +6,15 @@ WHERE semester = 'Fall' AND year = 2009 AND course_id NOT IN(SELECT course_id
 SELECT id,name FROM instructor
 WHERE salary > ALL(SELECT salary FROM instructor
 		   WHERE dept_name = 'Comp. Sci.');
+
+
+
+-----JOIN AND NATURAL JOIN-------------------
+
+SELECT DISTINCT id,name, s.dept_name,tot_cred 
+FROM student s JOIN department d ON (s.dept_name  = d.dept_name) //Specifying the join
+WHERE d.dept_name = 'Physics' ORDER BY id;
+
+SELECT DISTINCT id,name, s.dept_name,tot_cred //SQL specifies its join depending on the columns name
+FROM student s NATURAL JOIN department d
+WHERE d.dept_name = 'Physics' ORDER BY id;
