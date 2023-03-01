@@ -1,6 +1,8 @@
 SELECT course_id FROM section
-WHERE semester = 'Fall' AND year = 2009
-			AND course_id NOT IN(SELECT course_id
-													 FROM section
-													 WHERE semester = 'Spring' AND year=2010)
- -----------------------------------------------------------------------
+WHERE semester = 'Fall' AND year = 2009 AND course_id NOT IN(SELECT course_id
+								FROM section
+								WHERE semester = 'Spring' AND year=2010)
+
+SELECT id,name FROM instructor
+WHERE salary > ALL(SELECT salary FROM instructor
+		   WHERE dept_name = 'Comp. Sci.');
