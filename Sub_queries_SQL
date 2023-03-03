@@ -54,3 +54,14 @@ FROM instructor i  NATURAL LEFT JOIN teaches t USING (id);
 SELECT *
 FROM instructor i FULL JOIN teaches t USING (id);
 
+
+SELECT a.nombre, a.fecha_nacimiento, a.id
+FROM actor a, protagonizar pp, pelicula p
+WHERE a.id=pp.id_actor AND p.codigo=pp.codigo_pelicula AND EXTRACT(YEAR FROM age(now(), a.fecha_nacimiento))>=18 AND p.ano>2020
+	AND EXTRACT(YEAR FROM age(now(), a.fecha_nacimiento)) > SOME 
+		(SELECT EXTRACT(YEAR FROM age(now(), aa.fecha_nacimiento))
+		 FROM actor aa
+		 WHERE genero='Mujer'
+		);
+		
+
