@@ -18,3 +18,39 @@ WHERE d.dept_name = 'Physics' ORDER BY id;
 SELECT DISTINCT id,name, s.dept_name,tot_cred //SQL specifies its join depending on the columns name
 FROM student s NATURAL JOIN department d
 WHERE d.dept_name = 'Physics' ORDER BY id;
+
+
+
+SELECT *
+FROM instructor NATURAL JOIN teaches;
+
+
+SELECT *
+FROM instructor i JOIN teaches t ON (i.id =t.id);
+
+
+SELECT * 
+FROM instructor i INNER JOIN teaches t USING (id);
+
+
+--Instructores que no han enseñado ningun curso
+SELECT 	instructor.*
+FROM instructor NATURAL LEFT JOIN teaches
+WHERE course_id IS NULL;
+------------------------------------------
+
+SELECT * FROM instructor
+WHERE salary IS NULL;
+
+
+SELECT *
+FROM instructor i  NATURAL LEFT JOIN teaches t;
+
+SELECT *
+FROM instructor i  NATURAL LEFT JOIN teaches t USING (id);
+
+----JOIN que une sin importar si hay relacion----------
+
+SELECT *
+FROM instructor i FULL JOIN teaches t USING (id);
+
