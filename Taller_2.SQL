@@ -18,3 +18,17 @@ SELECT p.codigo,nombre
 FROM productor p, pelicula,producir
 WHERE p.codigo = producir.codigo_pelicula AND duracion > ALL(SELECT MAX(duracion),
 							FROM pelicula);
+							
+--d)
+SELECT actor.* 
+FROM protagonizar p ,pelicula,producir,actor
+WHERE p.codigo_pelicula IN (SELECT codigo_pelicula
+						   FROM producir,productor,pelicula
+						   WHERE nombre = 'Steven Spielberg');
+						   
+						   
+--e)
+SELECT titulo, duracion FROM pelicula,actor
+WHERE nombre = 'Jenna Ortega' AND duracion > SOME (SELECT codigo_pelicula
+												  FROM protagonizar,pelicula,actor
+												  WHERE nombre = 'Ana de Armas');
