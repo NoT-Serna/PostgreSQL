@@ -32,3 +32,36 @@ SELECT titulo, duracion FROM pelicula,actor
 WHERE nombre = 'Jenna Ortega' AND duracion > SOME (SELECT codigo_pelicula
 												  FROM protagonizar,pelicula,actor
 												  WHERE nombre = 'Ana de Armas');
+												  
+--2)
+--a)
+SELECT COUNT(genero = 'male')
+FROM actor, protagonizar p JOIN productor pp ON (p.codigo_peliucla = pp.codigo_pelicula)
+WHERE pp.nombre = 'Steven Spielberg' AND anio > 2020; 
+
+
+--b)
+SELECT nombre
+FROM actor NATURAL JOIN protagonizar
+WHERE codigo_pelicula = NULL AND anio = 2022
+ORDER BY nombre ASC;
+
+--c)
+SELECT trailer.* 
+FROM trailer t JOIN protagonizar p ON (t.codigo_pelicula = p.codigo_pelicula)
+WHERE id_actor = '345';
+
+--d)
+SELECT productor.*
+FROM productor NATURAL JOIN producir
+WHERE codigo_pelicula = NULL;
+
+--e)
+SELECT actor.* 
+FROM actor, protagonizar p JOIN producir pp ON (p.codigo_pelicula = pp.codigo_pelicula)
+WHERE codigo_productor = '4';
+
+--f)
+SELECT pelicula.* 
+FROM pelicula NATURAL JOIN protagonizar
+WHERE id_actor != 3 AND id_actor != 4;
