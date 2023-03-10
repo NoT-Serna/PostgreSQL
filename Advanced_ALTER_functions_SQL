@@ -1,0 +1,41 @@
+
+
+
+ALTER TABLE estudiante
+	ADD CONSTRAINT est_uq
+		UNIQUE (id,nombre);
+
+ALTER TABLE estudiante
+	ADD CONSTRAINT est_fecha_uq
+		UNIQUE (nombre, fecha_nto);
+		
+		
+INSERT into estudiante VALUES(23,'pedrocraft','2003-03-04');
+
+
+--INVENTAR TIPOS DE DATOS
+
+CREATE TYPE status AS ENUM
+	('Activo', 'Inactivo');
+
+ALTER TABLE estudiante
+	ADD COLUMN estado status;
+
+ALTER TABLE estudiante
+	ALTER COLUMN estado SET DEFAULT 'Activo';
+
+INSERT into estudiante VALUES(1,'owo','2003-03-04');
+
+SELECT * FROM estudiante;
+
+ALTER TABLE estudiante
+	DROP CONSTRAINT est_uq;
+
+--DOMINIO
+
+CREATE DOMAIN no_espacios
+	AS varchar NOT NULL CHECK(value !~ '\s');
+	
+
+ALTER TABLE estudiante
+	ALTER COLUMN nombre TYPE no_espacios;
