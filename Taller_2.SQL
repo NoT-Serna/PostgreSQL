@@ -65,3 +65,37 @@ WHERE codigo_productor = '4';
 SELECT pelicula.* 
 FROM pelicula NATURAL JOIN protagonizar
 WHERE id_actor != 3 AND id_actor != 4;
+
+--3)
+--a)
+CREATE MATERIALIZED VIEW num_pelxpro
+AS
+SELECT COUNT(pelicula.codigo) FROM pelicula NATURAL JOIN producir
+GROUP BY(codigo_productor);
+
+SELECT * FROM num_pelxpro;
+
+--b)
+CREATE VIEW avg_duracion
+AS
+SELECT AVG(duracion) FROM pelicula NATURAL JOIN producir
+WHERE duracion IN (SELECT * FROM num_pelxpro);
+
+SELECT * FROM avg_duracion;
+
+--c)
+CREATE VIEW count_pelxhombre
+AS
+SELECT COUNT(pelicula.codigo) FROM actor, pelicula NATURAL JOIN protagonizar
+WHERE actor.genero = 'male';
+
+SELECT * FROM count_pelxhombre;
+
+--d)
+CREATE VIEW trailer_x20
+AS
+SELECT DISTINCT actor.nombre, EXTRACT(YEAR FROM age(now(), actor.fecha_nacimiento)) 
+FROM trailer, actor NATURAL JOIN protagonizar
+WHERE trailer.duracion < 20;
+
+SELECT * FROM trailer_x20;
