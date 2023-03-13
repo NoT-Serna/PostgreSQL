@@ -39,3 +39,18 @@ CREATE DOMAIN no_espacios
 
 ALTER TABLE estudiante
 	ALTER COLUMN nombre TYPE no_espacios;
+
+--Contadores autonúmericos
+
+ALTER TABLE estudiante
+	ADD COLUMN contador serial;
+
+CREATE sequence est_con2_seq
+	INCREMENT BY 2
+	MINVALUE 10 MAXVALUE 20
+	START 10 CYCLE;
+
+ALTER TABLE estudiante
+	ALTER COLUMN contador_2 SET DEFAULT next_val('est_con2_seq'::regclass);
+
+SELECT contador_2 FROM estudiante;
