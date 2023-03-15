@@ -1,0 +1,17 @@
+----CREATE PROCEDURE SQL-----
+CREATE FUNCTION suma2(int,int)	
+	RETURNS int
+	AS 'SELECT $1 + $2;'
+	LANGUAGE SQL;
+
+SELECT suma2(100,700);
+
+--CREATE PROCEDURE PL/SQL-----
+CREATE FUNCTION suma(i int, j int)	
+	RETURNS int
+	AS $$
+	BEGIN
+		RETURN i+j;
+	END
+	$$
+	LANGUAGE plpgsql;
