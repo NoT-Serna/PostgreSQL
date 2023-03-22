@@ -99,3 +99,21 @@ FROM trailer, actor NATURAL JOIN protagonizar
 WHERE trailer.duracion < 20;
 
 SELECT * FROM trailer_x20;
+
+--4)
+--Restricciones--
+--a)
+ALTER TABLE actor
+	ADD CONSTRAINT gen_check
+	CHECK(genero IN ('F', 'M', 'NB'));
+
+--b)
+ALTER TABLE pelicula
+	ADD CONSTRAINT duracion_max
+	CHECK(duracion >= 60);
+
+--c)
+ALTER TABLE pelicula
+	ADD CONSTRAINT anio_min
+	CHECK(anio > 2000);
+
