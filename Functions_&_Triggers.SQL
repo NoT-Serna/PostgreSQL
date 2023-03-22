@@ -152,3 +152,54 @@ DELETE FROM empleado_2
 WHERE id = 1040;
 
 SELECT * FROM empleado_antiguo;
+
+---empleado antiguo con fecha exacta de su retiro---
+ALTER TABLE empleado_antiguo
+	ADD COLUMN fecha_hora timestamp;
+
+ALTER TABLE empleado_antiguo
+	ADD COLUMN usuario varchar(30);
+
+CREATE OR REPLACE FUNCTION emp_antiguo()
+RETURNS trigger
+AS
+$$
+BEGIN
+	INSERT into empleado_antiguo VALUES(OLD.id, OLD.nombre, OLD.cargo, OLD.salario, now(), user);
+	RETURN OLD;
+	
+END;
+$$
+LANGUAGE plpgsql;
+	
+DELETE from empleado_2 WHERE id = 1030;
+SELECT * FROM empleado_antiguo;
+SELECT * FROM empleado_2;
+
+
+CREATE OR REPLACE FUNCTION emp_id(i int)
+RETURNS varchar
+AS 
+$$
+	DECLARE
+		nombre_n varchar;
+	BEGIN
+		SELECT e.nombre INTO nombre_n
+		FROM empleado_2 e
+		WHERE e.id = i;
+		RETURN nombre_n;
+
+	END;
+$$
+LANGUAGE plpgsql;
+
+SELECT emp_id(1060);
+
+CREATE OR REPLACE FUNCTION ver_empleados_for
+RETURNS void
+AS
+$$
+DECLARE
+emp record;
+	FOR emp IN SELECT id,nombre FROM empleado_2 LOOP
+	RAISE NOTICE 'id % nom', emp.id, emmp.nombre
