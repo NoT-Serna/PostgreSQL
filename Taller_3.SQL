@@ -1,6 +1,6 @@
 --1)
 --a)
-CREATE TYPE nombre_persona AS (varchar(40), NOT NULL))
+CREATE TYPE nombre_persona AS (np varchar(40));
 
 --b)
 CREATE TYPE genero AS ENUM
@@ -14,4 +14,12 @@ CREATE TYPE sexo AS ENUM
 	('F', 'M', 'NB');
 
 --e)
-CREATE TYPE duracion AS RANGE
+CREATE DOMAIN max_dur
+	AS int NOT NULL CHECK(value > 90 AND  value < 180);
+
+--2)
+--a)
+CREATE USER productor
+PASSWORD 'peli123%';
+
+GRANT SELECT ON pelicula TO productor WITH GRANT OPTION
