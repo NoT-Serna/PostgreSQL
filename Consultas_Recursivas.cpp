@@ -29,3 +29,20 @@ WITH RECURSIVE organigrama AS
 	SELECT e.id, e.nombre, e.jefe_fk, o.nivel+1 as nivel
 	FROM empleado_3 e JOIN organigama o ON e.jefe_fk = o.id
 )
+
+---Consultas Recursivas (En dos tablas)----
+WITH RECURSIVE full_prereq AS
+(
+	--Caso inicial
+	SELECT course_id, prereq_id
+	FROM prereq
+	WHERE course_id = 'CS-347'
+	
+	UNION 
+	--Iteraciòn
+	SELECT p.prereq_id, f.course_id
+	FROM prereq p JOIN full_prereq f ON (p.course_id = f.prereq_id)
+	
+)
+
+SELECT * FROM full_prereq;
