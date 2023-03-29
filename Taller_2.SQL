@@ -84,12 +84,13 @@ WHERE duracion IN (SELECT * FROM num_pelxpro);
 SELECT * FROM avg_duracion;
 
 --c)
-CREATE VIEW count_pelxhombre
+CREATE MATERIALIZED VIEW count_pel_hombre
 AS
 SELECT COUNT(pelicula.codigo) FROM actor, pelicula NATURAL JOIN protagonizar
-WHERE actor.genero = 'male';
+WHERE actor.genero = 'M';
 
-SELECT * FROM count_pelxhombre;
+SELECT * FROM count_pel_hombre;
+
 
 --d)
 CREATE VIEW trailer_x20
