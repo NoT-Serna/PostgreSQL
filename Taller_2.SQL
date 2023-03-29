@@ -34,37 +34,37 @@ WHERE nombre = 'Jenna Ortega' AND duracion > SOME (SELECT codigo_pelicula
 												  WHERE nombre = 'Ana de Armas');
 												  
 --2)
---a)
-SELECT COUNT(genero = 'male')
-FROM actor, protagonizar p JOIN productor pp ON (p.codigo_peliucla = pp.codigo_pelicula)
-WHERE pp.nombre = 'Steven Spielberg' AND anio > 2020; 
 
+--a)
+SELECT COUNT(actor.id)
+FROM actor,pelicula, productor, protagonizar p JOIN producir pp ON(p.codigo_pelicula = pp.codigo_pelicula)
+WHERE actor.genero = 'M' AND productor.nombre ='Steven Spielberg' AND anio > 2020;
 
 --b)
-SELECT nombre
-FROM actor NATURAL JOIN protagonizar
+SELECT a.nombre 
+FROM pelicula, actor a NATURAL JOIN protagonizar
 WHERE codigo_pelicula = NULL AND anio = 2022
-ORDER BY nombre ASC;
+ORDER BY a.nombre ASC;
 
 --c)
-SELECT trailer.* 
-FROM trailer t JOIN protagonizar p ON (t.codigo_pelicula = p.codigo_pelicula)
-WHERE id_actor = '345';
+SELECT t.*
+FROM protagonizar p JOIN trailer t ON(p.codigo_pelicula = t.codigo_pelicula)
+WHERE id_actor = 4;
 
 --d)
-SELECT productor.*
-FROM productor NATURAL JOIN producir
+SELECT p.*
+FROM productor p NATURAL JOIN producir pp 
 WHERE codigo_pelicula = NULL;
 
 --e)
-SELECT actor.* 
-FROM actor, protagonizar p JOIN producir pp ON (p.codigo_pelicula = pp.codigo_pelicula)
-WHERE codigo_productor = '4';
+SELECT a.*
+FROM actor a, protagonizar p JOIN producir pp ON (p.codigo_pelicula = pp.codigo_pelicula)
+WHERE codigo_productor = 11;
 
 --f)
-SELECT pelicula.* 
-FROM pelicula NATURAL JOIN protagonizar
-WHERE id_actor != 3 AND id_actor != 4;
+SELECT p.*
+FROM pelicula p NATURAL JOIN protagonizar pp 
+WHERE id_actor != 777 AND id_actor != 345;
 
 --3)
 --a)
