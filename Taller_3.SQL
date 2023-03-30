@@ -22,4 +22,17 @@ CREATE DOMAIN max_dur
 CREATE USER productor
 PASSWORD 'peli123%';
 
-GRANT SELECT ON pelicula TO productor WITH GRANT OPTION
+GRANT SELECT ON pelicula TO productor
+GRANT INSERT ON pelicula TO productor 
+GRANT UPDATE ON pelicula TO productor
+GRANT DELETE ON pelicula TO productor
+
+REVOKE DELETE ON pelicula FROM productor
+
+
+--b)
+CREATE USER asistente
+PASSWORD 'actor23*';
+
+GRANT SELECT ON actor TO asistente
+GRANT UPDATE ON actor TO asistente
