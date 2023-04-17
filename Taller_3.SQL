@@ -36,3 +36,45 @@ PASSWORD 'actor23*';
 
 GRANT SELECT ON actor TO asistente
 GRANT UPDATE ON actor TO asistente
+
+--2)
+--a)
+CREATE FUNCTION productorXpeliculas(i int)
+RETURNS int
+AS
+$$
+	DECLARE
+			peliculas int;
+	
+	BEGIN	
+		SELECT COUNT(codigo_pelicula) INTO peliculas
+		FROM pelicula NATURAL JOIN producir
+		WHERE producir.codigo_productor = i;
+		RETURN peliculas;
+		
+	END;
+$$
+LANGUAGE plpgsql;
+SELECT productorXpeliculas(14);
+--b)
+
+CREATE OR REPLACE FUNCTION edad_actor(i int)
+RETURNS int
+AS
+$$	
+	DECLARE
+		edad int;
+		i int;
+	BEGIN
+		IF EXISTS (SELECT id FROM actor a WHERE a.id = i)THEN
+		edad = EXTRACT(YEAR FROM age(now(), a.fecha_nacimiento));
+		RETURN edad;
+		END IF;
+	END;
+$$
+LANGUAGE plpgsql;
+SELECT edad_actor(4);
+
+SELECT * from actor;
+
+EXTRACT(YEAR FROM age(now(), a.fecha_nacimiento))
