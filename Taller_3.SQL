@@ -55,7 +55,7 @@ $$
 	END;
 $$
 LANGUAGE plpgsql;
-SELECT productorXpeliculas(14);
+SELECT productorXpeliculas(12);
 --b)
 
 CREATE OR REPLACE FUNCTION edad_actor(i int)
@@ -75,6 +75,25 @@ $$
 LANGUAGE plpgsql;
 SELECT edad_actor(4);
 
-SELECT * from actor;
+--4)
+CREATE OR REPLACE FUNCTION mod_presupuesto()
+RETURNS trigger
+AS
+$$
+BEGIN
+	INSERT into pelicula VALUES(OLD.codigo, NEW.presupuesto);
+	RETURN NEW;
+	
+END;
+$$
+LANGUAGE plpgsql;
 
-EXTRACT(YEAR FROM age(now(), a.fecha_nacimiento))
+CREATE TRIGGER mod_prespuesto_tr
+	AFTER UPDATE
+	ON pelicula
+	FOR EACH ROW
+	EXECUTE FUNCTION mod_presupuesto();
+	
+UPDATE pelicula
+SET presupuesto = 120000.00
+WHERE pelicula.codigo = 3;
