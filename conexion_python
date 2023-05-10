@@ -1,0 +1,42 @@
+import psycopg2
+
+try:
+    conexion = psycopg2.connect(user = "postgres",
+                                password= "123456789",
+                                database = "carga_masiva",
+                                host = "localhost",
+                                port = "5432")
+    print("Conexion Exitosa")
+    sqll= """ SELECT name
+            FROM country
+            ORDER BY 1;
+            """
+    sql2= """ SELECT *
+            FROM region
+            ORDER BY 1;
+            """
+
+#Ejecutar la Sentencia Paises
+    cursor = conexion.cursor()
+    cursor.execute(sqll)
+    country = cursor.fetchone()
+    print("***PAISES**")
+    while country:
+        print(country[0])
+        country = cursor.fetchone()
+
+#Ejecutar la Sentencia Regiones
+    cursor = conexion.cursor()
+    cursor.execute(sql2)
+    regiones = cursor.fetchall()
+    print("***REGIONES**")
+    for region in regiones
+        print("CODE: ", regiones[0])
+        print("NAME: ", regiones[1])
+
+except psycopg2.Error as e:
+    print("Ocurrio un error al consultar:",e)
+
+finally:
+    cursor.close()
+    conexion.close()
