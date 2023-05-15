@@ -1,0 +1,34 @@
+--1)
+WITH RECURSIVE actoresxDago_Garcia AS
+(
+	--Caso inicial
+	SELECT *
+	FROM director
+	WHERE director = 'Sofia'
+	
+	UNION
+	--ITERACION
+	SELECT id, nombre
+	FROM actor a JOIN director d ON(a.id = d.id_actor)
+
+)
+
+SELECT * FROM actoresxDago_Garcia;
+
+--2)
+
+WITH RECURSIVE directoresxAna_de_Armas AS
+(
+	--Caso Inicial 
+	SELECT id, nombre
+	FROM actor
+	WHERE nombre = 'Ana de Armas'
+	
+	UNION
+	--iteracion
+	SELECT id_actor, director
+	FROM director d JOIN actor a ON(d.id_actor = a.id)
+
+)
+
+SELECT * FROM directoresxAna_de_Armas;
