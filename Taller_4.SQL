@@ -43,3 +43,20 @@ SELECT titulo, SUM(presupuesto), RANK() OVER(
 
 FROM pelicula
 GROUP BY genero, titulo;
+
+
+
+--b)
+SELECT titulo, duracion, RANK() OVER(
+		ORDER BY duracion DESC
+		) rank_n
+FROM pelicula NATURAL JOIN producir
+WHERE codigo_productor =  11;
+
+
+--c)
+SELECT p.titulo, t.duracion, RANK() OVER(
+		ORDER BY t.duracion DESC
+		) rank_n
+FROM pelicula p JOIN trailer t ON (p.codigo = t.codigo_pelicula);
+
