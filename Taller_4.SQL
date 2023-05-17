@@ -1,4 +1,5 @@
 --1)
+--a)
 WITH RECURSIVE actoresxDago_Garcia AS
 (
 	--Caso inicial
@@ -15,7 +16,7 @@ WITH RECURSIVE actoresxDago_Garcia AS
 
 SELECT * FROM actoresxDago_Garcia;
 
---2)
+--b)
 
 WITH RECURSIVE directoresxAna_de_Armas AS
 (
@@ -32,3 +33,13 @@ WITH RECURSIVE directoresxAna_de_Armas AS
 )
 
 SELECT * FROM directoresxAna_de_Armas;
+
+--2)
+--a)
+SELECT titulo, SUM(presupuesto), RANK() OVER(
+		PARTITION BY genero
+		ORDER BY SUM(presupuesto) ASC
+		) rank_n
+
+FROM pelicula
+GROUP BY genero, titulo;
